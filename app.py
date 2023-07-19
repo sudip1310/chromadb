@@ -13,7 +13,7 @@ st.title('Working with chromaDB')
 openai_api_key = st.text_input("OpenAI API Key", type="password")
 source_doc = st.file_uploader("Upload Source Document", type="pdf")
 question=st.text_input("Enter your query")
-
+#open_ai_key="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"
 # Check if the 'Ask' button is clicked
 if st.button("Ask"):
     # Validate inputs
