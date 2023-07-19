@@ -7,14 +7,15 @@ from langchain.chains.summarize import load_summarize_chain
 from langchain.document_loaders import PyPDFLoader
 
 # Streamlit app
-st.title('LangChain Doc Summarizer')
+st.title('Working with chromaDB')
 
 # Get OpenAI API key and source document input
 openai_api_key = st.text_input("OpenAI API Key", type="password")
 source_doc = st.file_uploader("Upload Source Document", type="pdf")
+question=st.text_input("Enter your query")
 
-# Check if the 'Summarize' button is clicked
-if st.button("Summarize"):
+# Check if the 'Ask' button is clicked
+if st.button("Ask"):
     # Validate inputs
     if not openai_api_key.strip() or not source_doc:
         st.write(f"Please provide the missing fields.")
@@ -35,7 +36,8 @@ if st.button("Summarize"):
             llm=OpenAI(temperature=0, openai_api_key=openai_api_key)
             chain = load_summarize_chain(llm, chain_type="stuff")
             search = vectordb.similarity_search(" ")
-            summary = chain.run(input_documents=search, question="Write a summary within 150 words.")
+            
+            summary = chain.run(input_documents=search, question=question)
             
             st.write(summary)
         except Exception as e:
